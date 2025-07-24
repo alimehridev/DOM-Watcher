@@ -1,3 +1,9 @@
+function decodeHtmlEntities(str) {
+    const txt = document.createElement("textarea");
+    txt.innerHTML = str;
+    return txt.value;
+}
+
 function checkForKeywords(keywords) {
     const bodyText = document.body.innerHTML.toLowerCase();
     for (const keyword of keywords) {
@@ -38,9 +44,9 @@ function storeFoundKeyword(origin, href, keyword) {
 }
 
 const origin = location.origin;
-const href = location.href;
 function notifyUser(keyword) {
-    storeFoundKeyword(origin, href, keyword);
+  const href = location.href;
+  storeFoundKeyword(origin, href, keyword);
 }
 
 
@@ -64,7 +70,7 @@ chrome.storage.local.get("added_origins", (result) => {
         });
     });
 
-    observer.observe(document.body.parentElement, {
+    observer.observe(document.body, {
         childList: true,
         subtree: true,
         characterData: true,

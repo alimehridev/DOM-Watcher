@@ -37,9 +37,8 @@ addBtn.addEventListener("click", () => {
     chrome.storage.local.get(key_2, (result) => {
         const arr = result[key_2] || [];
         
-        // اگر میخوای تکراری اضافه نشه، چک کن:
         if (!arr.includes(value)) {
-            arr.push(value);
+            arr.push(JSON.parse('"' + value + '"'));
         }
 
         chrome.storage.local.set({ [key_2]: arr }, () => {
