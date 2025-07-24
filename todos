@@ -1,0 +1,10 @@
+1. Make reflection logs removable
+2. Add regex to Origins and reflection pattern
+3. When a reflection pattern is removed the logs should be removed too
+4. When an origin got removed reflection pattern and logs should be removed too
+5. Add number of reflection in the dashboard of Origins
+6. Add date of reflection logs
+8. Search in reflection logs
+9. Sortable reflection logs
+10. Add confirm popup for deletion
+11. Check the origin pattern when use wants to add a new on
