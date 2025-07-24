@@ -14,6 +14,10 @@ function checkForKeywords(keywords) {
 }
 
 function getKeywordsByOrigin(origin, callback) {
+  if (!chrome.runtime?.id) {
+    console.warn("Extension context is invalidated.");
+    return;
+  }
   chrome.storage.local.get("keywords_by_origin", (data) => {
     const all = data.keywords_by_origin || {};
 
