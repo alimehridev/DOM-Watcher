@@ -15,21 +15,24 @@ async function loadOriginData(origin) {
   dataDiv.innerHTML = "";
 
   Object.entries(pages).forEach(([pageURL, keywords]) => {
-    const pageDiv = document.createElement("div");
-    pageDiv.className = "page";
-
-    const title = document.createElement("strong");
-    title.textContent = pageURL;
-    pageDiv.appendChild(title);
-
     keywords.forEach(keyword => {
+      const pageDiv = document.createElement("div");
+      pageDiv.className = "page";
+
+      const title = document.createElement("strong");
+      const anchor = document.createElement("a")
+      anchor.href = pageURL
+      anchor.target = "_blank"
+      anchor.innerText = pageURL
+      title.appendChild(anchor)
+      pageDiv.appendChild(title);
       const kw = document.createElement("div");
       kw.className = "keyword";
       kw.textContent = keyword;
       pageDiv.appendChild(kw);
+      dataDiv.appendChild(pageDiv);
     });
 
-    dataDiv.appendChild(pageDiv);
   });
 }
 

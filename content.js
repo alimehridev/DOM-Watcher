@@ -56,8 +56,10 @@ chrome.storage.local.get("added_origins", (result) => {
     const observer = new MutationObserver((e) => {
         getKeywordsByOrigin(origin, (pages) => {
           try{
-            let counts = Object.keys(pages).length;
-            chrome.runtime.sendMessage({ type: "setBadge", text: counts.toString() });
+            let sum = []; 
+            Object.values(pages).forEach(item => {sum.push(item.length)});
+            sum = sum.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+            chrome.runtime.sendMessage({ type: "setBadge", text: sum.toString() });
           }catch {
             chrome.runtime.sendMessage({ type: "setBadge", text: "0" });
           }

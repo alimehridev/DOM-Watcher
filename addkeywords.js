@@ -38,7 +38,7 @@ addBtn.addEventListener("click", () => {
         const arr = result[key_2] || [];
         
         if (!arr.includes(value)) {
-            arr.push(JSON.parse('"' + value + '"'));
+            arr.push(value);
         }
 
         chrome.storage.local.set({ [key_2]: arr }, () => {
