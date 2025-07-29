@@ -9,10 +9,8 @@ function removeKeywordFromStorage(origin, href, keywordToRemove) {
   chrome.storage.local.get("keywords_by_origin", (data) => {
     const all = data.keywords_by_origin || {};
     if (!all[origin] || !all[origin][href]) return;
-    all[origin][href] = all[origin][href].filter(
-      (kw) => kw !== keywordToRemove
-    );
-    if (all[origin][href].length === 0) {
+    delete all[origin][href][keywordToRemove]
+    if (Object.keys(all[origin][href]).length === 0) {
       delete all[origin][href];
     }
     if (Object.keys(all[origin]).length === 0) {
@@ -38,10 +36,10 @@ async function loadOriginData(origin) {
   dataDiv.innerHTML = "";
 
   Object.entries(pages).forEach(([pageURL, keywords]) => {
-    keywords.forEach(keyword => {
+    Object.keys(keywords).forEach(keyword => {
       const pageDiv = document.createElement("div");
       pageDiv.className = "page";
-
+      let parameters_number = (new URL(pageURL)).search.split("&").length
       const title = document.createElement("strong");
       const anchor = document.createElement("a")
       anchor.href = pageURL
@@ -52,7 +50,11 @@ async function loadOriginData(origin) {
       const kw = document.createElement("div");
       kw.className = "keyword";
       kw.textContent = keyword;
+      const count = document.createElement("div");
+      count.className = "keyword";
+      count.textContent = `${parameters_number} / ${keywords[keyword]}`;
       pageDiv.appendChild(kw);
+      pageDiv.appendChild(count);
       let remove_log_btn = document.createElement("button")
       remove_log_btn.classList.add("removeLogBtn")
       remove_log_btn.innerText = "remove"

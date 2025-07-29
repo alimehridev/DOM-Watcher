@@ -1,4 +1,3 @@
-1. Make reflection logs removable
 2. Add regex to Origins and reflection pattern
 3. When a reflection pattern is removed the logs should be removed too
 4. When an origin got removed reflection pattern and logs should be removed too

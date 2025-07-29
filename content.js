@@ -8,7 +8,8 @@ function checkForKeywords(keywords) {
     const bodyText = document.body.innerHTML.toLowerCase();
     for (const keyword of keywords) {
         if (bodyText.includes(keyword.toLowerCase())) {
-            notifyUser(keyword);
+          let count = countSubstringSplit(bodyText, keyword)
+          notifyUser(keyword, count);
         }
     }
 }
@@ -26,7 +27,7 @@ function getKeywordsByOrigin(origin, callback) {
   });
 }
 
-function storeFoundKeyword(origin, href, keyword) {
+function storeFoundKeyword(origin, href, keyword, count) {
   chrome.storage.local.get("keywords_by_origin", (data) => {
     const all = data.keywords_by_origin || {};
 
@@ -35,22 +36,20 @@ function storeFoundKeyword(origin, href, keyword) {
     }
 
     if (!all[origin][href]) {
-      all[origin][href] = [];
+      all[origin][href] = {};
     }
-
-    if (!all[origin][href].includes(keyword)) {
-      all[origin][href].push(keyword);
+    if(!all[origin][href][keyword] || all[origin][href][keyword] < count){
+      all[origin][href][keyword] = count;
     }
-
     chrome.storage.local.set({ keywords_by_origin: all }, () => {
     });
   });
 }
 
 const origin = location.origin;
-function notifyUser(keyword) {
+function notifyUser(keyword, count) {
   const href = location.href;
-  storeFoundKeyword(origin, href, keyword);
+  storeFoundKeyword(origin, href, keyword, count);
 }
 
 
@@ -60,10 +59,7 @@ chrome.storage.local.get("added_origins", (result) => {
     const observer = new MutationObserver((e) => {
         getKeywordsByOrigin(origin, (pages) => {
           try{
-            let sum = []; 
-            Object.values(pages).forEach(item => {sum.push(item.length)});
-            sum = sum.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
-            chrome.runtime.sendMessage({ type: "setBadge", text: sum.toString() });
+            chrome.runtime.sendMessage({ type: "setBadge", text: Object.keys(pages[Object.keys(pages).filter(item => item == location.href)[0]]).length.toString() });
           }catch {
             chrome.runtime.sendMessage({ type: "setBadge", text: "0" });
           }
