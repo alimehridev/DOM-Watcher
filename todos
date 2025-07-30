@@ -1,9 +1,9 @@
-2. Add regex to Origins and reflection pattern
-3. When a reflection pattern is removed the logs should be removed too
-4. When an origin got removed reflection pattern and logs should be removed too
-5. Add number of reflection in the dashboard of Origins
-6. Add date of reflection logs
-8. Search in reflection logs
-9. Sortable reflection logs
-10. Add confirm popup for deletion
-11. Check the origin pattern when use wants to add a new on
+* [ ] Add support for regex in Origins and reflection patterns.
+* [ ] When a reflection pattern is removed, its associated logs should also be deleted.
+* [ ] When an origin is removed, its reflection patterns and logs must also be removed.
+* [ ] Display the number of reflections for each origin in the dashboard.
+* [ ] Add timestamps to reflection logs.
+* [ ] Implement search functionality within reflection logs.
+* [ ] Make reflection logs sortable (e.g. by date, keyword, etc.).
+* [ ] Show a confirmation popup before deleting items.
+* [ ] Validate the origin format when a user attempts to add a new one.
