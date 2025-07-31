@@ -56,6 +56,7 @@ A Chrome extension that monitors pages under a given origin and alerts you whene
 ## 🧑‍💻 Author
 
 * Ali Mehri – [@alimehridev](https://github.com/alimehridev)
+* [My Telegram Channel](https://t.me/memoriesofahacker)
 
 ## 📄 License
 
